@@ -1,3 +1,4 @@
+'''
 # Contact Class
 class Contact:
     def __init__(self, name, phone_number, email, addr):
@@ -65,8 +66,24 @@ def load_content(contact_list):
         contact_list.append(contact)
 
     f.close()
+'''
+
+from neural_network import NeuralNetwork
+
 
 def run():
+    print('hello python')
+
+    # set neural network
+    input_nodes = 3
+    hidden_nodes = 3
+    output_nodes = 3
+    learning_rate = 0.3
+
+    n = NeuralNetwork(input_nodes, hidden_nodes, output_nodes, learning_rate)
+    print('n', n)
+
+    '''
     # set_content()
 
     contact_list = []
@@ -88,7 +105,8 @@ def run():
 
         elif menu == 4:
             store_contact(contact_list)
-            break
+            break'''
+
 
 # implementation
 if __name__ == '__main__':
