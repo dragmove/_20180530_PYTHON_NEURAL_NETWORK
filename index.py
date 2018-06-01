@@ -69,21 +69,44 @@ def load_content(contact_list):
 '''
 
 from neural_network import NeuralNetwork
+import numpy
 
 
 def run():
     print('hello python')
 
     # set neural network
-    input_nodes = 3
-    hidden_nodes = 3
-    output_nodes = 3
+    input_nodes = 784
+    hidden_nodes = 100
+    output_nodes = 10
 
     learning_rate = 0.3
 
     n = NeuralNetwork(input_nodes, hidden_nodes, output_nodes, learning_rate)
-    print(n.query([1.0, 0.5, -1.5]))
-    # print(n.train([1.0, 0.5, -1.5], [2.0, 1.0, -3.0]))
+    
+    # train
+    training_data_file = open('mnist_dataset/mnist_train_100.csv', 'r')
+    training_data_list = training_data_file.readlines()
+    training_data_file.close()
+
+    for record in training_data_list:
+        all_values = record.split(',')
+        inputs = (numpy.asfarray(all_values[1:]) / 255.0 * 0.99) + 0.01
+
+        targets = numpy.zeros(output_nodes) + 0.01
+        targets[int(all_values[0])] = 0.99
+
+        n.train(inputs, targets)
+        pass
+
+    # test
+    test_data_file = open('mnist_dataset/mnist_test_10.csv', 'r')
+    test_data_list = test_data_file.readline()
+    test_data_file.close()
+
+    all_values = test_data_list[0].split(',')
+    print(all_values[0])
+
 
     '''
     # set_content()
